@@ -2,7 +2,7 @@ from flask import Flask
 from flask_migrate import Migrate
 from server.config import db
 from flask_restful import Api
-from server.routes import Users, Books, Rents
+from server.routes import Customers, BabyProducts, Rents
 
 app = Flask(__name__)
 migrate = Migrate(app, db)
@@ -14,6 +14,6 @@ db.init_app(app)
 api = Api(app)
 
 
-api.add_resource(Users, '/users')
-api.add_resource(Books, '/books')
+api.add_resource(Customers, '/customers')
+api.add_resource(BabyProducts, '/baby_products')
 api.add_resource(Rents, '/rents')

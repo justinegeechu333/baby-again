@@ -1,20 +1,20 @@
 # from server.config import db
 from flask_restful import Resource
 # from flask_restful import reqparse, abort, Api, Resource
-from server.models.users import User
-from server.models.books import Book
+from server.models.customers import Customer
+from server.models.babyproducts import BabyProduct
 from server.models.rents import Rent
 
 
-class Users(Resource):
+class Customers(Resource):
     def get(self):
-        users = [user.to_dict() for user in User.query.all()]
+        users = [user.to_dict() for user in Customer.query.all()]
         return users
 
 
-class Books(Resource):
+class BabyProducts(Resource):
     def get(self):
-        books = [book.to_dict() for book in Book.query.all()]
+        books = [book.to_dict() for book in BabyProduct.query.all()]
         return books
 
 
