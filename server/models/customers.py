@@ -4,6 +4,7 @@ from sqlalchemy import String, Integer
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from server.config import db
 from sqlalchemy_serializer import SerializerMixin
+
 # from server.models.books import Book
 # from server.models.rents import Rent
 
@@ -27,17 +28,19 @@ from sqlalchemy_serializer import SerializerMixin
 
 #     rented_books: AssociationProxy[List] = association_proxy(
 #         'rented_records', 'book')
-    
+
+
 class Customer(db.Model, SerializerMixin):
-    __tablename__ = 'customers'
-    serialize_rules=('-rents.customer',)
-    id = db.Column(db.Integer, primary_key = True)
+    __tablename__ = "customers"
+    serialize_rules = ("-rents.customer", "-password")
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     phone_number = db.Column(db.String)
     email = db.Column(db.String)
     login_id = db.Column(db.String)
     password = db.Column(db.String)
 
-    rents = db.relationship('Rent', back_populates = 'customer', cascade = 'all, delete-orphan')
-    baby_products = association_proxy('rents', 'baby_product')
-
+    rents = db.relationship(
+        "Rent", back_populates="customer", cascade="all, delete-orphan"
+    )
+    baby_products = association_proxy("rents", "baby_product")
