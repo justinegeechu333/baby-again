@@ -7,8 +7,10 @@ from server.models.customers import Customer
 from server.models.babyproducts import BabyProduct
 from server.models.rents import Rent
 from sqlalchemy import and_, or_, not_
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 migrate = Migrate(app, db)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
