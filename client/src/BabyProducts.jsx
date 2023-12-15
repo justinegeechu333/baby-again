@@ -1,44 +1,35 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Grid, Header, Image, Item } from "semantic-ui-react";
+import { Grid, Header, Item } from "semantic-ui-react";
 
-export function BabyProducts() {
-    const [babyProducts, setBabyProducts] = useState({});
+export function BabyProducts({ babyProducts }) {
+    const [categoryGroups, setCategoryGroup] = useState({});
+
     useEffect(() => {
-        fetch("http://localhost:5555/baby_products")
-            .then((res) => res.json())
-            .then((allItems) => {
-                // {
-                //     "age_group": "0-24 months",
-                //     "category": "bed",
-                //     "details": "bed for infants to 2 years of age",
-                //     "id": 1,
-                //     "image": "",
-                //     "name": "crib",
-                //     "price": null,
-                //     "rents": []
-                //   }
-                const allCategories = {};
-                for (let item of allItems) {
-                    if (!allCategories[item.category]) {
-                        allCategories[item.category] = [];
-                    }
-                    allCategories[item.category].push(item);
-                }
-                setBabyProducts(allCategories);
-            })
-            .catch((err) => console.error(err));
-    }, []);
-    console.log(babyProducts);
+        const allCategories = {};
+        // reorganize babyProducts array to {category: [individual array]} format
+        for (let item of babyProducts) {
+            if (!allCategories[item.category]) {
+                allCategories[item.category] = [];
+            }
+            // change categoryGroups to have {category: [item]}
+            allCategories[item.category].push(item);
+        }
+
+        setCategoryGroup(allCategories);
+    }, [babyProducts, setCategoryGroup]);
+
+    const categories = Object.keys(categoryGroups); // ['crib', 'stroller', ...]
+
     return (
         <>
-            {Object.keys(babyProducts).map((category) => {
+            {categories.map((category) => {
                 return (
-                    <>
+                    <React.Fragment key={category}>
                         <Header size="large">{category}</Header>
                         <Grid columns="16" divided>
                             <Grid.Row>
-                                {babyProducts[category].map((bp) => {
+                                {categoryGroups[category].map((bp) => {
                                     return (
                                         <Grid.Column
                                             key={bp.id}
@@ -48,7 +39,9 @@ export function BabyProducts() {
                                             computer="4"
                                         >
                                             <NavLink
-                                                to={`/baby_products/${bp.id}`}
+                                                to={
+                                                    `/baby_products/${bp.id}` /*"/baby_products/" + bp.id*/
+                                                }
                                             >
                                                 <Item.Group className="bg-slate-50 rounded-lg shadow-md p-4 border-gray-100">
                                                     <Item className="items-center">
@@ -81,7 +74,7 @@ export function BabyProducts() {
                                 })}
                             </Grid.Row>
                         </Grid>
-                    </>
+                    </React.Fragment>
                 );
             })}
             {/* <Header size="large">Beds</Header>

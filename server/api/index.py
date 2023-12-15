@@ -77,50 +77,84 @@ class BabyProductsByIdRoutes(Resource):
 api.add_resource(BabyProductsByIdRoutes, "/baby_products/<int:id>")
 
 
-class SignUpRoutes(Resource):
+class CustomerRoute(Resource):
     def post(self):
-        params = request.form.to_dict()
+        params = request.json
+
+        # try:
+        existing_customer = (
+            db.session.query(Customer)
+            .where(
+                or_(
+                    Customer.email == str(params["email"]).lower(),
+                    Customer.phone_number == params["phone_number"],
+                    Customer.login_id == str(params["login_id"]).lower(),
+                )
+            )
+            .first()
+        )
+        if existing_customer:
+            return make_response({"error": "Already exists"}, 403)
+
+        new_customer = Customer(
+            name=str(params["name"]).lower(),
+            phone_number=params["phone_number"],
+            email=str(params["email"]).lower(),
+            login_id=str(params["login_id"]).lower(),
+            password=params["password"],
+        )
+        db.session.add(new_customer)
+        db.session.commit()
+        return make_response(new_customer.to_dict(), 201)
+        # except:
+        #     return make_response({"error": "internal error"}, 500)
+
+    def patch(self):
+        params = request.json
+        print("patch:", params)
+
+        existing_customer = None
+
         try:
+            # The code block you provided is handling the PATCH request for updating customer information.
             existing_customer = (
                 db.session.query(Customer)
-                .where(
-                    or_(
-                        Customer.email == params["email"],
-                        Customer.phone_number == params["phone_number"],
-                        Customer.login_id == params["login_id"],
-                    )
-                )
+                .where(Customer.email == str(params["email"]).lower())
                 .first()
             )
-            if existing_customer:
-                return make_response({"error": "Already exists"}, 403)
+        except:
+            return make_response({"error": "User Does not exist"}, 403)
 
-            new_customer = Customer(
-                name=params["name"],
-                phone_number=params["phone_number"],
-                email=params["email"],
-                login_id=params["login_id"],
-                password=params["password"],
-            )
-            db.session.add(new_customer)
+        if params["password"] != existing_customer.password:
+            return make_response({"error": "Password does not match"}, 403)
+
+        try:
+            for key in params:
+                if key == "email":
+                    continue
+                if params[key]:
+                    setattr(existing_customer, key, params[key])
+
             db.session.commit()
-            return make_response(new_customer.to_dict(), 201)
+            return make_response(existing_customer.to_dict(), 200)
+
         except:
             return make_response({"error": "internal error"}, 500)
 
 
-api.add_resource(SignUpRoutes, "/sign_up")
+api.add_resource(CustomerRoute, "/customer")
 
 
 class SignInRoutes(Resource):
     def post(self):
-        params = request.form.to_dict()
+        params = request.json
+        print("sign-in", params)
         try:
             found_customer = (
                 db.session.query(Customer)
                 .where(
                     and_(
-                        Customer.login_id == params["login_id"],
+                        Customer.email == str(params["email"]).lower(),
                         Customer.password == params["password"],
                     )
                 )
@@ -133,3 +167,81 @@ class SignInRoutes(Resource):
 
 
 api.add_resource(SignInRoutes, "/sign_in")
+
+
+class AdminSignInRoutes(Resource):
+    def post(self):
+        params = request.json
+        print(params)
+        if (
+            str(params["email"]).lower() == "admin@babyagain.com"
+            and params["password"] == "admin"
+        ):
+            admin = Customer(
+                email="admin@babyagain.com",
+                name="admin",
+                phone_number="999-999-9999",
+                id=-1,
+            )
+            return make_response(admin.to_dict(), 201)
+        else:
+            return make_response({"error": "cannot find user"}, 406)
+
+
+api.add_resource(AdminSignInRoutes, "/admin/sign_in")
+
+
+class RentByIdRoutes(Resource):
+    # def get(self):
+    #     baby_products = [
+    #         baby_product.to_dict() for baby_product in BabyProduct.query.all()
+    #     ]
+    #     return make_response(baby_products, 200)
+
+    def post(self, id):
+        new_baby_product = BabyProduct.query.where(BabyProduct.id == id).first()
+
+        if new_baby_product == None:
+            return make_response({"error": "no such item found"}, 404)
+
+        customer_id = request.json["customer_id"]
+
+        new_rent = Rent(customer_id=customer_id, baby_product_id=id)
+
+        try:
+            db.session.add(new_rent)
+            db.session.commit()
+            return make_response(new_rent.to_dict(), 201)
+        except:
+            return make_response({"error": "server error"}, 500)
+
+    def delete(self, id):
+        customer_id = request.json["customer_id"]
+        print("trying to delete", id, customer_id)
+        existing_rent = Rent.query.where(
+            and_(Rent.id == id, Rent.customer_id == customer_id)
+        ).first()
+        if existing_rent == None:
+            return make_response({"error": "no such rent found"}, 404)
+
+        try:
+            db.session.delete(existing_rent)
+            db.session.commit()
+            return make_response("succeed", 204)
+        except:
+            return make_response({"error": "server error"}, 500)
+
+
+api.add_resource(RentByIdRoutes, "/rent/<int:id>")
+
+
+class RentedRoutes(Resource):
+    def get(self):
+        customer_id = request.args["customer_id"]
+        rents = [
+            rent.to_dict() for rent in Rent.query.where(Rent.customer_id == customer_id)
+        ]
+        return make_response(rents, 200)
+
+
+api.add_resource(RentedRoutes, "/rent")

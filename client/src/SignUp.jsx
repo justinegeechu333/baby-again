@@ -1,8 +1,6 @@
 import { useFormik } from "formik";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button, Form } from "semantic-ui-react";
-import { UserContext } from "./UserContext";
 
 const validate = (values) => {
     const errors = {};
@@ -23,20 +21,21 @@ const validate = (values) => {
     return errors;
 };
 
-export default function AdminLogin() {
+export default function SignUp() {
     const navigate = useNavigate();
-    const { setUser } = useContext(UserContext);
 
     const formik = useFormik({
         initialValues: {
+            name: "",
+            phone_number: "",
+            login_id: "",
             email: "",
             password: "",
         },
         validate,
         onSubmit: (values) => {
             console.log("login");
-
-            fetch(`http://localhost:5555/admin/sign_in`, {
+            fetch(`http://localhost:5555/customer`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -48,9 +47,7 @@ export default function AdminLogin() {
                 })
                 .then((data) => {
                     console.log("data==>", data);
-                    data.isAdmin = true;
-                    setUser(data);
-                    navigate(`/admin/home`);
+                    navigate(`/home`);
                 });
         },
     });
@@ -69,6 +66,7 @@ export default function AdminLogin() {
                         <div>{formik.errors.email}</div>
                     ) : null}
                 </Form.Field>
+
                 <Form.Field>
                     <label>password</label>
                     <input
@@ -81,8 +79,45 @@ export default function AdminLogin() {
                         <div>{formik.errors.password}</div>
                     ) : null}
                 </Form.Field>
+                <Form.Field>
+                    <label>name</label>
+                    <input
+                        name="name"
+                        onChange={formik.handleChange}
+                        value={formik.values.name}
+                    ></input>
+                    {formik.errors.name ? (
+                        <div>{formik.errors.name}</div>
+                    ) : null}
+                </Form.Field>
+                <Form.Field>
+                    <label>phone_number</label>
+                    <input
+                        name="phone_number"
+                        onChange={formik.handleChange}
+                        value={formik.values.phone_number}
+                    ></input>
+                    {formik.errors.phone_number ? (
+                        <div>{formik.errors.phone_number}</div>
+                    ) : null}
+                </Form.Field>
+                <Form.Field>
+                    <label>login_id</label>
+                    <input
+                        name="login_id"
+                        onChange={formik.handleChange}
+                        value={formik.values.login_id}
+                    ></input>
+                    {formik.errors.login_id ? (
+                        <div>{formik.errors.login_id}</div>
+                    ) : null}
+                </Form.Field>
                 <div className="flex place-content-between">
-                    <Button type="submit">Login as Admin</Button>
+                    <NavLink to="/login" className="underline">
+                        {" "}
+                        {`I already have an account`}
+                    </NavLink>
+                    <Button type="submit">Sign Up</Button>
                 </div>
             </Form>
         </div>
