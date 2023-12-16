@@ -30,17 +30,25 @@ export function Rent({ babyProducts }) {
             <Item.Group className="bg-slate-50 rounded-lg shadow-md p-4 border-gray-100">
                 <Item className="items-center">
                     <Item.Image
-                        size="large"
+                        size="medium"
                         src={selected.image}
                         className="rounded-full shadow-lg overflow-hidden"
                     />
 
                     <Item.Content>
-                        <Item.Header>{selected.name}</Item.Header>
-                        <Item.Meta>{selected.age_group}</Item.Meta>
-                        <Item.Description>{selected.details}</Item.Description>
+                        <div>
+                            <Item.Header as="div">
+                                <h2 className="uppercase text-lg">
+                                    {selected.name}
+                                </h2>
+                            </Item.Header>
+                            <Item.Meta>{selected.age_group}</Item.Meta>
+                            <Item.Description>
+                                {selected.details}
+                            </Item.Description>
 
-                        <Item.Meta>{selected.price}</Item.Meta>
+                            <Item.Meta>{selected.price}</Item.Meta>
+                        </div>
                     </Item.Content>
                 </Item>
             </Item.Group>

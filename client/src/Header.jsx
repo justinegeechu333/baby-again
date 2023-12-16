@@ -24,12 +24,6 @@ const Header = () => {
                 <li>
                     <NavLink to="/baby_products">Baby Products</NavLink>
                 </li>
-                <li>
-                    <NavLink to="/how_it_works">How It Works</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/trust_and_safety">Trust & Safety</NavLink>
-                </li>
                 {user?.name ? (
                     <>
                         <li>

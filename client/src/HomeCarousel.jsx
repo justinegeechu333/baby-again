@@ -2,12 +2,13 @@ import { useState } from "react";
 import ReactSimplyCarousel from "react-simply-carousel";
 const commonStyle = {
     width: "100vw",
-    height: "400px",
+    height: "fit-content",
 };
 export function HomeCarousel() {
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+
     return (
-        <div className="w-full relative">
+        <div className="w-screen relative -ml-4">
             <ReactSimplyCarousel
                 activeSlideIndex={activeSlideIndex}
                 onRequestChange={setActiveSlideIndex}
@@ -65,36 +66,32 @@ export function HomeCarousel() {
                 speed={400}
                 easing="linear"
             >
-                {/* here you can also pass any other element attributes. Also, you can use your custom components as slides */}
-                <div style={{ ...commonStyle, background: "#ff80ed" }}>
-                    slide 0
+                <div style={{ ...commonStyle }}>
+                    <div className="flex flex-col w-full gap-8">
+                        {/* <embed src="/marketing-banner.mp4" width="100%" /> */}
+                        <img
+                            src="/banner-2.png"
+                            className="w-full object-contain"
+                        />
+                    </div>
                 </div>
-                <div style={{ ...commonStyle, background: "#065535" }}>
-                    slide 1
+                <div style={{ ...commonStyle }}>
+                    <div className="flex flex-col w-full gap-8">
+                        {/* <embed src="/marketing-banner.mp4" width="100%" /> */}
+                        <img
+                            src="/banner-2.png"
+                            className="w-full object-contain"
+                        />
+                    </div>
                 </div>
-                <div style={{ ...commonStyle, background: "#000000" }}>
-                    slide 2
-                </div>
-                <div style={{ ...commonStyle, background: "#133337" }}>
-                    slide 3
-                </div>
-                <div style={{ ...commonStyle, background: "#ffc0cb" }}>
-                    slide 4
-                </div>
-                <div style={{ ...commonStyle, background: "#ffffff" }}>
-                    slide 5
-                </div>
-                <div style={{ ...commonStyle, background: "#ffe4e1" }}>
-                    slide 6
-                </div>
-                <div style={{ ...commonStyle, background: "#008080" }}>
-                    slide 7
-                </div>
-                <div style={{ ...commonStyle, background: "#ff0000" }}>
-                    slide 8
-                </div>
-                <div style={{ ...commonStyle, background: "#e6e6fa" }}>
-                    slide 9
+                <div style={{ ...commonStyle }}>
+                    <div className="flex flex-col w-full gap-8">
+                        {/* <embed src="/marketing-banner.mp4" width="100%" /> */}
+                        <img
+                            src="/banner-2.png"
+                            className="w-full object-contain"
+                        />
+                    </div>
                 </div>
             </ReactSimplyCarousel>
         </div>
