@@ -67,7 +67,7 @@ class BabyProductsByIdRoutes(Resource):
         baby_product = BabyProduct.query.get(id)
         if not baby_product:
             return make_response({"error": "Baby product not found"}, 406)
-        params = request.form.to_dict()
+        params = request.json
         for attr in params:
             setattr(baby_product, attr, params[attr])
         db.session.commit()
@@ -199,35 +199,38 @@ class RentByIdRoutes(Resource):
     #     return make_response(baby_products, 200)
 
     def post(self, id):
-        new_baby_product = BabyProduct.query.where(BabyProduct.id == id).first()
+        new_baby_product = BabyProduct.query.where(BabyProduct.id == int(id)).first()
 
         if new_baby_product == None:
             return make_response({"error": "no such item found"}, 404)
 
         customer_id = request.json["customer_id"]
 
-        new_rent = Rent(customer_id=customer_id, baby_product_id=id)
+        new_rent = Rent(customer_id=int(customer_id), baby_product_id=int(id))
 
-        try:
-            db.session.add(new_rent)
-            db.session.commit()
-            return make_response(new_rent.to_dict(), 201)
-        except:
-            return make_response({"error": "server error"}, 500)
+        # try:
+        db.session.add(new_rent)
+        db.session.commit()
+        return make_response(new_rent.to_dict(), 201)
+        # except:
+        #     return make_response({"error": "server error"}, 500)
 
     def delete(self, id):
         customer_id = request.json["customer_id"]
         print("trying to delete", id, customer_id)
-        existing_rent = Rent.query.where(
-            and_(Rent.id == id, Rent.customer_id == customer_id)
-        ).first()
-        if existing_rent == None:
-            return make_response({"error": "no such rent found"}, 404)
-
         try:
-            db.session.delete(existing_rent)
+            Rent.query.filter(
+                and_(Rent.id == int(id), Rent.customer_id == int(customer_id))
+            ).delete()
             db.session.commit()
+            # if existing_rent == None:
             return make_response("succeed", 204)
+            # return make_response({"error": "no such rent found"}, 404)
+        # print("deleting...", existing_rent)
+        # try:
+        #     db.session.delete(existing_rent)
+        #     db.session.commit()
+        #     return make_response("succeed", 204)
         except:
             return make_response({"error": "server error"}, 500)
 
@@ -239,8 +242,10 @@ class RentedRoutes(Resource):
     def get(self):
         customer_id = request.args["customer_id"]
         rents = [
-            rent.to_dict() for rent in Rent.query.where(Rent.customer_id == customer_id)
+            rent.to_dict()
+            for rent in Rent.query.where(Rent.customer_id == int(customer_id))
         ]
+        print("rents:", rents)
         return make_response(rents, 200)
 
 

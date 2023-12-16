@@ -1,6 +1,6 @@
 // import { HomeCarousel } from "./HomeCarousel";
 
-import { Card, Header, Image } from "semantic-ui-react";
+import { Card, Header, Image, Rating } from "semantic-ui-react";
 import "./Home.css";
 import { HomeCarousel } from "./HomeCarousel";
 import { NavLink } from "react-router-dom";
@@ -51,7 +51,7 @@ export function Home() {
             "https://m.media-amazon.com/images/W/MEDIAX_792452-T1/images/I/91VAHFdMkFL._AC_SX679_.jpg",
         ],
         [
-            "swings",
+            "swings/bouncers",
             "https://www.tradeinn.com/f/13915/139155669_5/ingenuity-simple-comfort-everston-baby-swing.jpg",
         ],
         [
@@ -73,7 +73,7 @@ export function Home() {
     ];
 
     const randomIndexSet = new Set();
-    while (randomIndexSet.size < 3) {
+    while (randomIndexSet.size < 4) {
         const randomVal = Math.random();
         const randomIndex = parseInt(randomVal * imgSrc.length);
         if (randomIndex >= imgSrc.length) continue;
@@ -122,7 +122,7 @@ export function Home() {
                 <Header.Content>---What Our Moms Say---</Header.Content>
             </Header>
 
-            <Card.Group itemsPerRow={3} className="px-16 review">
+            <Card.Group itemsPerRow={4} className="px-16 review">
                 {review_images.map((image) => {
                     return (
                         <Card key={image}>
@@ -134,7 +134,12 @@ export function Home() {
                                     dsjflsjdlfsjd
                                 </div>
                                 <div className="absolute w-24 h-8 right-4 bottom-2 text-right only-hover text-shadow">
-                                    🌟🌟🌟
+                                    <Rating
+                                        icon="star"
+                                        defaultRating={3}
+                                        maxRating={5}
+                                        disabled
+                                    />
                                 </div>
                             </div>
                             {/* </Card.Content> */}

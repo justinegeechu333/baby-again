@@ -9,7 +9,8 @@ export function BabyProducts() {
     const [filters] = useSearchParams();
     const selectedCategories = (filters.get("category") ?? "")
         .split(",")
-        .filter((v) => v);
+        .filter((v) => v)
+        .map((v) => v.toLowerCase());
 
     useEffect(() => {
         const allCategories = {};
@@ -28,7 +29,11 @@ export function BabyProducts() {
     const allCategories = Object.keys(categoryGroups); // ['crib', 'stroller', ...]
 
     const chosenCategories =
-        selectedCategories.length === 0 ? allCategories : selectedCategories;
+        selectedCategories.length === 0
+            ? allCategories
+            : allCategories.filter((category) =>
+                  selectedCategories.includes(category.toLowerCase())
+              );
 
     return (
         <>
