@@ -6,7 +6,7 @@ import { UserContext } from "./UserContext";
 export function Rent({ babyProducts }) {
     const { product_id } = useParams();
     const { user } = useContext(UserContext);
-    const user_id = 1;
+    const user_id = user.id;
     const selected = babyProducts.find((bp) => bp.id === Number(product_id));
     const navigate = useNavigate();
     const onRent = () => {

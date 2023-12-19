@@ -11,6 +11,7 @@ export function BabyProducts() {
         .split(",")
         .filter((v) => v)
         .map((v) => v.toLowerCase());
+    const query = filters.get("query");
 
     useEffect(() => {
         const allCategories = {};
@@ -40,59 +41,74 @@ export function BabyProducts() {
             <div className="mt-4"></div>
             <Header size="huge">Baby Products</Header>
             <section className="flex flex-col gap-16">
-                {chosenCategories.map((category = "") => {
+                {chosenCategories.map((category = "", idx) => {
                     return (
-                        <div key={category}>
+                        <div key={`${category}-${idx}`}>
                             <h1 className="text-2xl font-extrabold uppercase text-yellow-600 px-2 border-t-2 border-b-2 border-y-yellow-900 w-fit">
                                 {category}
                             </h1>
                             <Grid columns="16" divided>
                                 <Grid.Row>
-                                    {categoryGroups[category].map((bp) => {
-                                        return (
-                                            <Grid.Column
-                                                key={bp.id}
-                                                className="gap-4 p-4"
-                                                mobile="16"
-                                                tablet="8"
-                                                computer="4"
-                                            >
-                                                <NavLink
-                                                    to={
-                                                        `/baby_products/${bp.id}` /*"/baby_products/" + bp.id*/
-                                                    }
+                                    {categoryGroups[category]
+                                        .filter((bp) => {
+                                            if (!query) return true;
+                                            if (bp.name.includes(query))
+                                                return true;
+                                            else return false;
+                                        })
+                                        .map((bp) => {
+                                            return (
+                                                <Grid.Column
+                                                    key={bp.id}
+                                                    className="gap-4 p-4"
+                                                    mobile="16"
+                                                    tablet="8"
+                                                    computer="4"
                                                 >
-                                                    <Item.Group className="bg-slate-50 rounded-lg shadow-md p-4 border-gray-100">
-                                                        <Item className="items-center">
-                                                            <Item.Image
-                                                                size="tiny"
-                                                                src={bp.image}
-                                                                className="rounded-full overflow-hidden"
-                                                            />
-
-                                                            <Item.Content>
-                                                                <Item.Header>
-                                                                    {bp.name}
-                                                                </Item.Header>
-                                                                <Item.Meta>
-                                                                    {
-                                                                        bp.age_group
+                                                    <NavLink
+                                                        to={
+                                                            `/baby_products/${bp.id}` /*"/baby_products/" + bp.id*/
+                                                        }
+                                                    >
+                                                        <Item.Group className="bg-slate-50 rounded-lg shadow-md p-4 border-gray-100">
+                                                            <Item className="items-center">
+                                                                <Item.Image
+                                                                    size="tiny"
+                                                                    src={
+                                                                        bp.image
                                                                     }
-                                                                </Item.Meta>
-                                                                <Item.Description>
-                                                                    {bp.details}
-                                                                </Item.Description>
+                                                                    className="rounded-full overflow-hidden"
+                                                                />
 
-                                                                <Item.Meta>
-                                                                    {bp.price}
-                                                                </Item.Meta>
-                                                            </Item.Content>
-                                                        </Item>
-                                                    </Item.Group>
-                                                </NavLink>
-                                            </Grid.Column>
-                                        );
-                                    })}
+                                                                <Item.Content>
+                                                                    <Item.Header>
+                                                                        {
+                                                                            bp.name
+                                                                        }
+                                                                    </Item.Header>
+                                                                    <Item.Meta>
+                                                                        {
+                                                                            bp.age_group
+                                                                        }
+                                                                    </Item.Meta>
+                                                                    <Item.Description>
+                                                                        {
+                                                                            bp.details
+                                                                        }
+                                                                    </Item.Description>
+
+                                                                    <Item.Meta>
+                                                                        {
+                                                                            bp.price
+                                                                        }
+                                                                    </Item.Meta>
+                                                                </Item.Content>
+                                                            </Item>
+                                                        </Item.Group>
+                                                    </NavLink>
+                                                </Grid.Column>
+                                            );
+                                        })}
                                 </Grid.Row>
                             </Grid>
                         </div>

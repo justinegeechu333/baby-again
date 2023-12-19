@@ -52,3 +52,11 @@
 .text-shadow {
     text-shadow: 2px 2px 4px rgba(78, 78, 78, 0.495);
 }
+
+.ui.input > input {
+    border-color: rgb(169 117 6 / 28%);
+}
+
+.ui.input > input:focus {
+    border-color: rgb(251, 172, 0);
+}
