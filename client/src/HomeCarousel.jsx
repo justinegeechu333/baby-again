@@ -79,7 +79,7 @@ export function HomeCarousel() {
                     <div className="flex flex-col w-full gap-8">
                         {/* <embed src="/marketing-banner.mp4" width="100%" /> */}
                         <img
-                            src="Modern Baby Products.png"
+                            src="modern-baby-products.png"
                             className="w-full object-contain"
                         />
                     </div>
@@ -88,7 +88,7 @@ export function HomeCarousel() {
                     <div className="flex flex-col w-full gap-8">
                         {/* <embed src="/marketing-banner.mp4" width="100%" /> */}
                         <img
-                            src="Floral Banner Design.png"
+                            src="floral-banner-design.png"
                             className="w-full object-contain"
                         />
                     </div>

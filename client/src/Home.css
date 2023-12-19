@@ -60,3 +60,9 @@
 .ui.input > input:focus {
     border-color: rgb(251, 172, 0);
 }
+
+.review.ui.cards .card img {
+    aspect-ratio: 2;
+    object-fit: contain;
+    /* object-position: left; */
+}

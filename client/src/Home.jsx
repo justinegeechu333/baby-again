@@ -166,8 +166,12 @@ export function Home() {
                     return (
                         <Card key={image}>
                             {/* <Card.Content className="relative"> */}
-                            <div className="relative w-full h-full p-2">
-                                <Image src={image} centered size="large" />
+                            <div className="relative w-full h-1/2 p-2">
+                                <Image
+                                    src={"share-your-experience.gif"}
+                                    centered
+                                    size="large"
+                                />
 
                                 <div className="absolute inset-0 flex items-center justify-center only-hover">
                                     dsjflsjdlfsjd
