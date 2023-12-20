@@ -63,7 +63,7 @@ export default function SignUp() {
                 />
             </div>
             <h1 className='font-extrabold text-4xl text-center text-stone-600'>
-                Sign Up
+                Welcome!
             </h1>
             <Form onSubmit={formik.handleSubmit}>
                 <Form.Field>

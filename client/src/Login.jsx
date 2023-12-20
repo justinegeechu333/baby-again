@@ -64,7 +64,7 @@ export default function Login() {
                 />
             </div>
             <h1 className='font-extrabold text-4xl text-center text-stone-600'>
-                Login
+                Love to see you again!
             </h1>
             <Form onSubmit={formik.handleSubmit}>
                 <Form.Field>

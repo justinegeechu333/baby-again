@@ -29,7 +29,7 @@ class BabyProductsRoutes(Resource):
         return make_response(baby_products, 200)
 
     def post(self):
-        params = request.form.to_dict()
+        params = request.json
         new_baby_product = BabyProduct(
             category=params["category"],
             age_group=params["age_group"],
