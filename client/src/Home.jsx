@@ -85,7 +85,7 @@ export function Home() {
                                     category,
                                 })}`}
                             >
-                                <div className='absolute inset-0 flex items-center justify-center text-shadow text-white hover:text-4xl hover:-rotate-45 transition-all whitespace-nowrap select-none'>
+                                <div className='absolute inset-0 flex items-center justify-center text-shadow text-white hover:text-4xl hover:-rotate-12 transition-all whitespace-nowrap select-none'>
                                     {category}
                                 </div>
                             </NavLink>
