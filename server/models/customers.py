@@ -32,7 +32,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 class Customer(db.Model, SerializerMixin):
     __tablename__ = "customers"
-    serialize_rules = ("-rents.customer", "-password")
+    serialize_rules = ("-rents.customer", "-password", '-reviews.customer')
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     phone_number = db.Column(db.String)
@@ -44,3 +44,6 @@ class Customer(db.Model, SerializerMixin):
         "Rent", back_populates="customer", cascade="all, delete-orphan"
     )
     baby_products = association_proxy("rents", "baby_product")
+    reviews = db.relationship(
+        "Review", back_populates="customer", cascade="all, delete-orphan"
+    )

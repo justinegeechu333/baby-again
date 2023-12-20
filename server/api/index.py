@@ -6,6 +6,7 @@ from flask_restful import Api, Resource
 from server.models.customers import Customer
 from server.models.babyproducts import BabyProduct
 from server.models.rents import Rent
+from server.models.review import Review
 from sqlalchemy import and_, or_, not_
 from flask_cors import CORS
 
@@ -250,3 +251,26 @@ class RentedRoutes(Resource):
 
 
 api.add_resource(RentedRoutes, "/rent")
+
+
+class ReviewRoutes(Resource):
+    def get(self):
+        reviews = [review.to_dict() for review in Review.query.limit(3).all()]
+        return make_response(reviews, 200)
+    
+    def post(self):
+        params = request.json
+        print("review:", params)
+        new_review = Review(
+            customer_id=params["customer_id"],
+            comments=params["comments"],
+            rate=params["rate"],
+        )
+        # try:
+        db.session.add(new_review)
+        db.session.commit()
+        return make_response(new_review.to_dict(), 201)
+        # except:
+        #     return make_response({"error": "server error"}, 500)
+        
+api.add_resource(ReviewRoutes, "/reviews")        
