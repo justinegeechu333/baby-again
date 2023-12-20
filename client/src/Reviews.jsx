@@ -110,7 +110,15 @@ const Reviews = () => {
                             </div>
                         </Form>
                     ) : (
-                        <NavLink to='/login'>Login</NavLink>
+                        <div>
+                            <Image src={'review2.png'} centered size='large' />
+                            <div className='absolute inset-0 flex items-center justify-center only-hover'>
+                                <NavLink to='/login' className='text-center'>
+                                    Please login <br />
+                                    to write a review
+                                </NavLink>
+                            </div>
+                        </div>
                     )}
                 </div>
                 {/* </Card.Content> */}
