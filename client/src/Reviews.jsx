@@ -91,7 +91,7 @@ const Reviews = () => {
                                 name='review'
                                 placeholder='Tell us your experience'
                             />
-                            <div className='flex flex-row justify-end items-center pt-2 pr-2'>
+                            <div className='flex lg:flex-row justify-end items-center pt-2 pr-2 sm:flex-col'>
                                 <Rating
                                     icon='star'
                                     defaultRating={5}
@@ -99,6 +99,7 @@ const Reviews = () => {
                                     onRate={(e, data) => {
                                         setStars(data.rating);
                                     }}
+                                    className='m-4'
                                 />
                                 <Button color='teal' type='submit'>
                                     Submit
