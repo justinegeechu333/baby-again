@@ -57,7 +57,7 @@ const Reviews = () => {
             });
     };
     return (
-        <Card.Group itemsPerRow={4} className='px-16 review'>
+        <Card.Group itemsPerRow={4} className='px-16 review flex flex-row'>
             {reviews.map(review => {
                 return (
                     <Card key={review.id}>
@@ -65,7 +65,7 @@ const Reviews = () => {
                         <div className='relative w-full h-1/2 p-2'>
                             <Image src={'review2.png'} centered size='large' />
 
-                            <div className='absolute inset-0 flex items-center justify-center only-hover'>
+                            <div className='absolute inset-0 flex only-hover p-2'>
                                 {review.comments}
                             </div>
                             <div className='absolute w-24 h-8 right-4 bottom-2 text-right only-hover text-shadow'>
@@ -84,18 +84,14 @@ const Reviews = () => {
 
             <Card>
                 {/* <Card.Content className="relative"> */}
-                <div className='relative w-full h-1/2 p-2'>
+                <div className='w-full h-max p-2 min-h-fit'>
                     {user.name ? (
                         <Form onSubmit={onNewReview}>
-                            <Image src={'review2.png'} centered size='large' />
-
-                            <div className='absolute inset-0 flex items-center justify-center only-hover'>
-                                <TextArea
-                                    name='review'
-                                    placeholder='Tell us your experience'
-                                />
-                            </div>
-                            <div className='absolute w-24 h-8 right-4 bottom-2 text-right only-hover text-shadow'>
+                            <TextArea
+                                name='review'
+                                placeholder='Tell us your experience'
+                            />
+                            <div className='flex flex-row justify-end items-center pt-2 pr-2'>
                                 <Rating
                                     icon='star'
                                     defaultRating={5}
@@ -112,7 +108,7 @@ const Reviews = () => {
                     ) : (
                         <div>
                             <Image src={'review2.png'} centered size='large' />
-                            <div className='absolute inset-0 flex items-center justify-center only-hover'>
+                            <div className='absolute inset-0 flex items-center justify-center '>
                                 <NavLink to='/login' className='text-center'>
                                     Please login <br />
                                     to write a review
