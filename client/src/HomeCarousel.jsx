@@ -1,14 +1,16 @@
-import { useState } from "react";
-import ReactSimplyCarousel from "react-simply-carousel";
+import { useState } from 'react';
+import ReactSimplyCarousel from 'react-simply-carousel';
+import './HomeCarousel.css';
+
 const commonStyle = {
-    width: "100vw",
-    height: "fit-content",
+    width: '100vw',
+    height: 'fit-content',
 };
 export function HomeCarousel() {
-    const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+    const [activeSlideIndex, setActiveSlideIndex] = useState(1);
 
     return (
-        <div className="w-screen relative -ml-4">
+        <div className='w-screen relative -ml-4 home-carousel'>
             <ReactSimplyCarousel
                 activeSlideIndex={activeSlideIndex}
                 onRequestChange={setActiveSlideIndex}
@@ -16,43 +18,17 @@ export function HomeCarousel() {
                 itemsToScroll={1}
                 forwardBtnProps={{
                     //here you can also pass className, or any other button element attributes
+                    className: 'move-button',
                     style: {
-                        // alignSelf: "center",
-                        background: "black",
-                        border: "none",
-                        borderRadius: "50%",
-                        color: "white",
-                        cursor: "pointer",
-                        fontSize: "20px",
-                        height: 30,
-                        lineHeight: 1,
-                        textAlign: "center",
-                        width: 30,
-                        position: "absolute",
-                        top: "calc(50% - 10px)",
-                        right: "10px",
-                        zIndex: "10",
+                        right: '10px',
                     },
                     children: <span>{`>`}</span>,
                 }}
                 backwardBtnProps={{
                     //here you can also pass className, or any other button element attributes
+                    className: 'move-button',
                     style: {
-                        // alignSelf: "center",
-                        background: "black",
-                        border: "none",
-                        borderRadius: "50%",
-                        color: "white",
-                        cursor: "pointer",
-                        fontSize: "20px",
-                        height: 30,
-                        lineHeight: 1,
-                        textAlign: "center",
-                        width: 30,
-                        position: "absolute",
-                        left: "10px",
-                        top: "calc(50% - 10px)",
-                        zIndex: "10",
+                        left: '10px',
                     },
                     children: <span>{`<`}</span>,
                 }}
@@ -64,32 +40,32 @@ export function HomeCarousel() {
                     },
                 ]}
                 speed={400}
-                easing="linear"
+                easing='linear'
             >
                 <div style={{ ...commonStyle }}>
-                    <div className="flex flex-col w-full gap-8">
+                    <div className='flex flex-col w-full gap-8'>
                         {/* <embed src="/marketing-banner.mp4" width="100%" /> */}
                         <img
-                            src="/banner-2.png"
-                            className="w-full object-contain"
+                            src='/banner-2.png'
+                            className='w-full object-contain'
                         />
                     </div>
                 </div>
                 <div style={{ ...commonStyle }}>
-                    <div className="flex flex-col w-full gap-8">
+                    <div className='flex flex-col w-full gap-8'>
                         {/* <embed src="/marketing-banner.mp4" width="100%" /> */}
                         <img
-                            src="modern-baby-products.png"
-                            className="w-full object-contain"
+                            src='modern-baby-products.png'
+                            className='w-full object-contain'
                         />
                     </div>
                 </div>
                 <div style={{ ...commonStyle }}>
-                    <div className="flex flex-col w-full gap-8">
+                    <div className='flex flex-col w-full gap-8'>
                         {/* <embed src="/marketing-banner.mp4" width="100%" /> */}
                         <img
-                            src="floral-banner-design.png"
-                            className="w-full object-contain"
+                            src='floral-banner-design.png'
+                            className='w-full object-contain'
                         />
                     </div>
                 </div>

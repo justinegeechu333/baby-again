@@ -1,0 +1,12 @@
+.search-bar {
+    & .ui.icon.input {
+        width: 100%;
+    }
+    & .ui.input > input {
+        border-color: rgb(169 117 6 / 28%);
+    }
+
+    & .ui.input > input:focus {
+        border-color: rgb(251, 172, 0);
+    }
+}

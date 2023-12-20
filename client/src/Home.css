@@ -1,68 +1,59 @@
-.category.ui.cards {
-    padding-top: 0.05em;
-    > .card:hover {
-        border: 2px solid rgb(114, 131, 58);
-        transform: scale(1.3);
-        z-index: 1000;
-        box-shadow: 1px 3px 5px rgba(88, 88, 88, 0.786);
-    }
-
-    & .card {
-        height: 100%;
-        & img {
-            aspect-ratio: 1;
-            margin-block: auto;
-            object-fit: cover;
+.home {
+    & .category.ui.cards {
+        padding-top: 0.05em;
+        > .card:hover {
+            border: 2px solid rgb(114, 131, 58);
+            transform: scale(1.3);
+            z-index: 1000;
+            box-shadow: 1px 3px 5px rgba(88, 88, 88, 0.786);
         }
-    }
-}
 
-.review.ui.cards {
-    padding-top: 0.05em;
-    & .card {
-        height: 100%;
-        overflow: hidden;
-        & img {
-            aspect-ratio: 1;
-            margin-block: auto;
-            object-fit: cover;
-            transition: 0.5s ease-out;
-            border-radius: 0.5rem;
+        & .card {
+            height: 100%;
+            & img {
+                aspect-ratio: 1;
+                margin-block: auto;
+                object-fit: cover;
+            }
         }
     }
 
-    & .card:not(:hover) {
-        & .only-hover {
-            display: none;
+    & .review.ui.cards {
+        padding-top: 0.05em;
+        & .card {
+            height: 100%;
+            overflow: hidden;
+            & img {
+                aspect-ratio: 2;
+                margin-block: auto;
+                object-fit: cover;
+                transition: 0.5s ease-out;
+                border-radius: 0.5rem;
+                object-fit: contain;
+                /* object-position: left; */
+                border-color: rgb(24, 51, 24);
+            }
+        }
+
+        & .card:not(:hover) {
+            & .only-hover {
+                display: none;
+            }
+        }
+
+        > .card:hover {
+            border: 2px solid rgb(114, 131, 58);
+            z-index: 1000;
+            box-shadow: 1px 3px 5px rgba(88, 88, 88, 0.786);
+
+            & img {
+                filter: blur(30px) brightness(1.2);
+                opacity: 0.8;
+            }
         }
     }
 
-    > .card:hover {
-        border: 2px solid rgb(114, 131, 58);
-        z-index: 1000;
-        box-shadow: 1px 3px 5px rgba(88, 88, 88, 0.786);
-
-        & img {
-            filter: blur(30px) brightness(1.2);
-            opacity: 0.8;
-        }
+    & .text-shadow {
+        text-shadow: 2px 2px 4px rgba(78, 78, 78, 0.495);
     }
-}
-
-.text-shadow {
-    text-shadow: 2px 2px 4px rgba(78, 78, 78, 0.495);
-}
-
-.ui.input > input {
-    border-color: rgb(169 117 6 / 28%);
-}
-
-.ui.input > input:focus {
-    border-color: rgb(251, 172, 0);
-}
-
-.review.ui.cards .card img {
-    aspect-ratio: 2;
-    object-fit: contain;
-    /* object-position: left; */
 }
