@@ -63,13 +63,19 @@ export function Home() {
             <HomeCarousel />
             <div className='mt-16'></div>
             <Header as='h2' icon textAlign='center'>
-                <Header.Content>---Come Shop With Us---</Header.Content>
+                <Header.Content className='flex items-center justify-center'>
+                    <span className='section-title'>Come Shop With Us</span>
+                </Header.Content>
             </Header>
 
             <Card.Group itemsPerRow={6} className='px-16 category'>
                 {categories.map(([category, image]) => {
                     return (
-                        <Card key={image} raised className='relative '>
+                        <Card
+                            key={image}
+                            raised
+                            className='relative overflow-hidden'
+                        >
                             <img
                                 src={image}
                                 className='aspect-square object-cover w-full h-full'
@@ -79,7 +85,7 @@ export function Home() {
                                     category,
                                 })}`}
                             >
-                                <div className='absolute inset-0 flex items-center justify-center text-shadow text-white hover:text-4xl transition-all overflow-hidden'>
+                                <div className='absolute inset-0 flex items-center justify-center text-shadow text-white hover:text-4xl hover:-rotate-45 transition-all whitespace-nowrap select-none'>
                                     {category}
                                 </div>
                             </NavLink>
@@ -95,9 +101,10 @@ export function Home() {
             </Card.Group>
             <div className='mt-16'></div>
             <Header as='h2' icon textAlign='center'>
-                <Header.Content>---What Our Moms Say---</Header.Content>
+                <Header.Content className='flex items-center justify-center'>
+                    <span className='section-title'>What Our Moms Say</span>
+                </Header.Content>
             </Header>
-
             <Reviews />
         </div>
     );
