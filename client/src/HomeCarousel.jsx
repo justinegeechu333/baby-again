@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactSimplyCarousel from 'react-simply-carousel';
 import './HomeCarousel.css';
 
@@ -8,7 +8,14 @@ const commonStyle = {
 };
 export function HomeCarousel() {
     const [activeSlideIndex, setActiveSlideIndex] = useState(1);
-
+    useEffect(() => {
+        const id = setInterval(() => {
+            setActiveSlideIndex(activeSlideIndex => (activeSlideIndex + 1) % 4);
+        }, 10000);
+        return () => {
+            clearInterval(id);
+        };
+    });
     return (
         <div className='w-screen relative -ml-4 home-carousel'>
             <ReactSimplyCarousel
