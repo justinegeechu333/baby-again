@@ -137,11 +137,11 @@ export function AdminHome() {
     const onNewImage = () => {
         let image = prompt('please add image', '');
         if (!image) return;
-        if (image?.includes('http')) {
-            setCurrImage(image);
-        } else {
-            alert('image url should start with http(s)');
-        }
+        // if (image?.includes('http')) {
+        setCurrImage(image);
+        // } else {
+        //     alert('image url should start with http(s)');
+        // }
         console.log('image clicked');
     };
 
@@ -152,29 +152,29 @@ export function AdminHome() {
         const currImage = imageElement.value;
         let image = prompt('please add image', currImage);
         if (!image) return;
-        if (image?.includes('http')) {
-            document.querySelector(`tr#row-${id} input[name="image"]`).value =
-                image;
-            if (imageElement.defaultValue !== imageElement.value) {
-                const row = imageElement.parentNode?.parentNode?.parentNode;
-                console.log('row', row);
-                row.classList.add('negative');
-            }
-            setBabyProducts(curr =>
-                curr.map(bp => {
-                    if (bp.id === id) {
-                        return {
-                            ...bp,
-                            image: image,
-                        };
-                    }
-                    return bp;
-                })
-            );
-        } else {
-            alert('image url should start with http(s)');
+        // if (image?.includes('http')) {
+        document.querySelector(`tr#row-${id} input[name="image"]`).value =
+            image;
+        if (imageElement.defaultValue !== imageElement.value) {
+            const row = imageElement.parentNode?.parentNode?.parentNode;
+            console.log('row', row);
+            row.classList.add('negative');
         }
-        console.log('image clicked');
+        setBabyProducts(curr =>
+            curr.map(bp => {
+                if (bp.id === id) {
+                    return {
+                        ...bp,
+                        image: image,
+                    };
+                }
+                return bp;
+            })
+        );
+        // } else {
+        //     alert('image url should start with http(s)');
+        // }
+        // console.log('image clicked');
     };
     return (
         <>

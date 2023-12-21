@@ -80,12 +80,8 @@ export function Home() {
                                 src={image}
                                 className='aspect-square object-cover w-full h-full'
                             />
-                            <NavLink
-                                to={`/baby_products?${new URLSearchParams({
-                                    category,
-                                })}`}
-                            >
-                                <div className='absolute inset-0 flex items-center justify-center text-shadow text-white hover:text-4xl hover:-rotate-12 transition-all whitespace-nowrap select-none'>
+                            <NavLink to={`/baby_products?category=${category}`}>
+                                <div className='absolute inset-0 flex items-center justify-center text-shadow text-white hover:text-4xl duration-300 transition-all whitespace-nowrap select-none'>
                                     {category}
                                 </div>
                             </NavLink>

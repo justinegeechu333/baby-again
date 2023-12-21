@@ -255,7 +255,7 @@ api.add_resource(RentedRoutes, "/rent")
 
 class ReviewRoutes(Resource):
     def get(self):
-        reviews = [review.to_dict() for review in Review.query.limit(3).all()]
+        reviews = [review.to_dict() for review in Review.query.order_by(Review.id.desc()).limit(3).all()]
         return make_response(reviews, 200)
     
     def post(self):

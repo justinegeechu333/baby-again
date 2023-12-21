@@ -11,7 +11,7 @@ export function HomeCarousel() {
     useEffect(() => {
         const id = setInterval(() => {
             setActiveSlideIndex(activeSlideIndex => (activeSlideIndex + 1) % 4);
-        }, 10000);
+        }, 3000);
         return () => {
             clearInterval(id);
         };
